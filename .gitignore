@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.venv/
+env/
+venv/
+
+# VS Code
+.vscode/
+
+# Pytest
+htmlcov/
+.coverage
+
+# MySQL or other DB artifacts (optional)
+*.sqlite3
+
+# Docker
+*.log
+*.pid
+*.sock
+
+# Byte-compiled / cache
+*.pyo
+*.pyd
+*.pyc
+
+# System
+.DS_Store
+Thumbs.db
+
+# Pydantic V2 cache
+.cache/

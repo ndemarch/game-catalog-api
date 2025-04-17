@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+pydantic
+httpx
+cryptography
+pytest
+pytest-asyncio
+pytest-sugar
+pytest-cov
+

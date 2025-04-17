@@ -1,0 +1,50 @@
+services:
+  api:
+    build: .
+    container_name: game-api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: game_catalog
+      MYSQL_HOST: db
+    volumes:
+      - .:/app
+    command: >
+      sh -c "sleep 10 && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    restart: always
+
+  db:
+    image: mysql:8
+    container_name: game-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: game_catalog
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  tests:
+    build: .
+    container_name: game-tests
+    depends_on:
+      - api
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DB: game_catalog
+      MYSQL_HOST: db
+    volumes:
+      - .:/app
+    command: >
+      sh -c "sleep 15 && pytest --cov=app --cov-report=term --cov-report=html --cov-fail-under=85 tests"
+    
+
+volumes:
+  mysql_data:
+
