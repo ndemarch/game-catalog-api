@@ -25,6 +25,27 @@ def get_character(char_id: int, db: Session = Depends(get_db)):
     if not char:
         raise HTTPException(status_code=404, detail="Character not found")
     return char
+
+@router.delete("/{char_id}", status_code=204)
+def delete_character(char_id: int, db: Session = Depends(get_db)):
+    char = db.query(Character).filter(Character.id == char_id).first()
+    if not char:
+        raise HTTPException(status_code=404, detail="Character not found")
+    db.delete(char)
+    db.commit()
+    return None
+
+@router.put("/{char_id}", response_model=CharacterOut)
+def update_character(char_id: int, char: CharacterCreate, db: Session = Depends(get_db)):
+    db_char = db.query(Character).filter(Character.id == char_id).first()
+    if not db_char:
+        raise HTTPException(status_code=404, detail="Character not found")
+    for key, value in char.model_dump().items():
+        setattr(db_char, key, value)
+    db.commit()
+    db.refresh(db_char)
+    return db_char
+
 ##pagination
 #@router.get("/", response_model=List[CharacterOut])
 #def list_characters(
