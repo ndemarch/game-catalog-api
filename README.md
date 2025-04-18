@@ -6,7 +6,7 @@ A RESTful API built with **FastAPI** for managing a game character and loadout c
 
 ## 📁 Project Structure
 
-game-catalog-api/ ├── app/ │ ├── init.py │ ├── main.py │ ├── db.py │ ├── models/ │ │ ├── init.py │ │ ├── character.py │ │ └── loadout.py │ ├── routes/ │ │ ├── init.py │ │ ├── character_routes.py │ │ └── loadout_routes.py │ ├── schemas/ │ │ ├── init.py │ │ ├── character.py │ │ └── loadout.py ├── tests/ │ ├── test_characters.py │ └── test_loadouts.py ├── .env ├── alembic.ini ├── requirements.txt ├── Dockerfile ├── docker-compose.yml └── README.md
+<pre lang="text"> ``` game-catalog-api/ ├── app/ │ ├── __init__.py │ ├── main.py │ ├── db.py │ ├── models/ │ │ ├── __init__.py │ │ ├── character.py │ │ └── loadout.py │ ├── routes/ │ │ ├── __init__.py │ │ ├── character_routes.py │ │ └── loadout_routes.py │ ├── schemas/ │ │ ├── __init__.py │ │ ├── character.py │ │ └── loadout.py ├── tests/ │ ├── test_characters.py │ └── test_loadouts.py ├── .env ├── alembic.ini ├── requirements.txt ├── Dockerfile ├── docker-compose.yml └── README.md ``` </pre>
 
 
 ---
