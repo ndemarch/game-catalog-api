@@ -53,6 +53,29 @@ Contains test cases using `pytest` and `httpx`.
 
 ---
 
+## Data Model
+
+erDiagram
+    CLASS_TYPE {
+        string warrior "Warrior"
+        string mage "Mage"
+        string rogue "Rogue"
+        string healer "Healer"
+        string ranger "Ranger"
+        string archer "Archer"
+    }
+    
+    characters {
+        int id PK "Primary Key"
+        string name
+        int level
+        CLASS_TYPE class_type FK "Foreign Key to CLASS_TYPE"
+        datetime created_at
+    }
+    
+    CLASS_TYPE ||--o{ characters : "has class type"
+
+
 ## 🧪 Running Tests
 
 ```bash
