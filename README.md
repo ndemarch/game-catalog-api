@@ -54,7 +54,7 @@ Contains test cases using `pytest` and `httpx`.
 ---
 
 ## Data Model
-
+```mermaid
 erDiagram
     CLASS_TYPE {
         string warrior "Warrior"
@@ -74,7 +74,7 @@ erDiagram
     }
     
     CLASS_TYPE ||--o{ characters : "has class type"
-
+```
 
 ## 🧪 Running Tests
 
