@@ -10,4 +10,5 @@ pytest
 pytest-asyncio
 pytest-sugar
 pytest-cov
-
+alembic
+pymysql

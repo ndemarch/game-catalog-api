@@ -6,11 +6,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DB: game_catalog
-      MYSQL_HOST: db
+    env_file:
+      - .env
     volumes:
       - .:/app
     command: >
@@ -21,24 +18,40 @@ services:
     image: mysql:8
     container_name: game-db
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: game_catalog
+    env_file:
+      - .env
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+
+  #alembic:
+  #  build: .
+  #  depends_on:
+  #    - db
+  #  env_file: .env
+  #  command: alembic upgrade head
+  #  volumes:
+  #    - .:/app
+  #  entrypoint: ["sh", "-c", "alembic upgrade head"]
+
+  alembic-dev:
+    build: .
+    depends_on:
+      - db
+    env_file: .env
+    volumes:
+      - .:/app
+    command: tail -f /dev/null
+
 
   tests:
     build: .
     container_name: game-tests
     depends_on:
       - api
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DB: game_catalog
-      MYSQL_HOST: db
+    env_file:
+      - .env
     volumes:
       - .:/app
     command: >

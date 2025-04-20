@@ -54,7 +54,7 @@ Contains test cases using `pytest` and `httpx`.
 ---
 
 ## Data Model
-
+```mermaid
 erDiagram
     CLASS_TYPE {
         string warrior "Warrior"
@@ -74,9 +74,24 @@ erDiagram
     }
     
     CLASS_TYPE ||--o{ characters : "has class type"
-
+```
 
 ## 🧪 Running Tests
 
 ```bash
 pytest --cov=app --cov-report=html
+```
+
+## Alembic Database Migrations
+
+Once alembic-dev container is running, to apply revisions to databases related to models and schemas run:
+
+```bash
+docker-compose exec alembic-dev alembic revision --autogenerate -m "<your-message-regarding-changes>"
+
+```
+
+
+```bash
+docker-compose exec alembic-dev alembic upgrade head
+```
