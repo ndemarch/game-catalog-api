@@ -26,10 +26,10 @@ if config.config_file_name is not None:
 # Build DATABASE_URL from env
 MYSQL_USER = os.getenv("MYSQL_USER")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_DB = os.getenv("MYSQL_DB")
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
 MYSQL_HOST = os.getenv("MYSQL_HOST")
 
-DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DB}"
+DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
 
 # Set it manually in config (this replaces sqlalchemy.url = ENV)
 config.set_main_option("sqlalchemy.url", DATABASE_URL)

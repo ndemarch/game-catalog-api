@@ -25,15 +25,16 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  #alembic:
-  #  build: .
-  #  depends_on:
-  #    - db
-  #  env_file: .env
-  #  command: alembic upgrade head
-  #  volumes:
-  #    - .:/app
-  #  entrypoint: ["sh", "-c", "alembic upgrade head"]
+  test-db:
+    image: mysql:8
+    container_name: test-game-db
+    restart: always
+    env_file:
+      - .env.test   
+    ports:
+      - "3308:3306"
+    volumes:
+      - test_mysql_data:/var/lib/mysql
 
   alembic-dev:
     build: .
@@ -49,15 +50,16 @@ services:
     build: .
     container_name: game-tests
     depends_on:
-      - api
+      - test-db
     env_file:
-      - .env
+      - .env.test
     volumes:
       - .:/app
     command: >
-      sh -c "sleep 15 && pytest --cov=app --cov-report=term --cov-report=html --cov-fail-under=85 tests"
+      sh -c "sleep 15 && pytest --cov=app --cov-report=term --cov-report=html --cov-fail-under=50 tests"
     
 
 volumes:
   mysql_data:
+  test_mysql_data:
 

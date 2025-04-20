@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Enum, JSON
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
+#from sqlalchemy.orm import relationship
 from app.db import Base
 import enum
 
@@ -23,5 +23,3 @@ class Character(Base):
     class_type = Column(Enum(ClassType), nullable=False)
     abilities = Column(JSON, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-
-    #loadouts = relationship("Loadout", back_populates="character")
