@@ -75,6 +75,7 @@ erDiagram
     
     CLASS_TYPE ||--o{ characters : "has class type"
 ```
+```
 
 ## 🧪 Running Tests
 
