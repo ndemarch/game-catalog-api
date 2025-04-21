@@ -2,10 +2,6 @@
 
 A RESTful API built with **FastAPI** for managing **character** and **item** catalogs in a game system. This backend leverages **SQLAlchemy** for ORM-based data modeling, **MySQL** for relational data storage, and **Alembic** for version-controlled database migrations. The project supports **environment-based configuration** via `.env` files and provides full **Docker support** for seamless containerization and deployment. Automated testing is integrated using **pytest** and runs in a dedicated test container using a separate in-memory test MySQL database for isolated and repeatable test execution.
 
-## Microservice Architecture
-
-This repository is structured following a **Microservice architecture**, which is a common design choice for **scalable MMORPG (Massively Multiplayer Online Role-Playing Game)** platforms. By decoupling the **character** and **item** services, each domain can be developed, deployed, and scaled independently. For example, as user load grows, character management may require more frequent updates and querying, enabling targeted scaling of the character service without affecting other parts of the system. This includes **better separation of concerns**, making it easier to manage and extend functionality (e.g., adding a combat service or inventory system), also a failure in one service (e.g., the item service) does not necessarily crash the entire game backend, along with **independent development teams**, allowing parallel feature development across services like questing, PvP matchmaking, or economy/trade systems.
-
 ---
 
 ## 📁 Project Structure & Module Descriptions
@@ -167,3 +163,9 @@ docker-compose exec alembic-dev alembic revision --autogenerate -m "<your-messag
 ```bash
 docker-compose exec alembic-dev alembic upgrade head
 ```
+
+
+## Microservice Architecture
+
+This repository is structured following a **Microservice architecture**, which is a common design choice for **scalable MMORPG (Massively Multiplayer Online Role-Playing Game)** platforms. By decoupling the **character** and **item** from other potential entities/services, each domain can be developed, deployed, and scaled independently. For example, as user load grows, character management may require more frequent updates and querying, enabling targeted scaling of the character service without affecting other parts of the system. This includes **better separation of concerns**, making it easier to manage and extend functionality, also a failure in one service (e.g., a worlds/levels service) does not necessarily crash the entire game backend, along with **independent development teams**, allowing parallel feature development across services like questing, PvP matchmaking, or trade systems.
+
