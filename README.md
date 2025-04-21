@@ -79,7 +79,9 @@ Contains test cases using `pytest` and `httpx`.
 
 ## 🗂️ Data Models
 Below are Entity-Relationshiop Diagrams (ERD) generated using Mermaid for our Data Models:
+
 **Character Model:**
+
 ```mermaid
 classDiagram
     class Character {
@@ -127,7 +129,7 @@ classDiagram
     Item --> SlotType : uses
 
 ```
-## 🛠️ Running to appplication
+## 🛠️ Running the appplication
 
 The application is containerized using **Docker** which include an *api container*, a *test and developement database container*, a *testing coverage* container and an *alembic container* for database migrations. To build the containers and run the application use the following command at the `root` directory:
 
