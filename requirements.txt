@@ -12,3 +12,5 @@ pytest-sugar
 pytest-cov
 alembic
 pymysql
+faker
+aiomysql

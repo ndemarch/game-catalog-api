@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 from app.db import get_db
 from app.models.character import Character
 from app.schemas.character import CharacterCreate, CharacterOut
@@ -8,37 +9,55 @@ from app.utils.abilities import DEFAULT_ABILITIES
 from app.exceptions.http_exceptions import NotFoundException
 
 
-def create_character_controller(char: CharacterCreate, db: Session = Depends(get_db)):
+async def create_character_controller(
+    char: CharacterCreate, db: AsyncSession = Depends(get_db)
+):
     abilities = DEFAULT_ABILITIES[char.class_type.value]
     db_char = Character(**char.model_dump(), abilities=abilities)
     db.add(db_char)
-    db.commit()
-    db.refresh(db_char)
+    await db.commit()
+    await db.refresh(db_char)
     return db_char
 
-def list_characters_controller(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return db.query(Character).offset(skip).limit(limit).all()
 
-def get_character_controller(char_id: int, db: Session = Depends(get_db)):
-    char = db.query(Character).filter(Character.id == char_id).first()
+async def list_characters_controller(
+    skip: int = 0, limit: int = 10, db: AsyncSession = Depends(get_db)
+):
+    result = await db.execute(select(Character).offset(skip).limit(limit))
+    return result.scalars().all()
+
+
+async def get_character_controller(
+    char_id: int, db: AsyncSession = Depends(get_db)
+):
+    result = await db.execute(select(Character).filter(Character.id == char_id))
+    char = result.scalar_one_or_none()
     if not char:
         raise NotFoundException("Character not found")
     return char
 
-def delete_character_controller(char_id: int, db: Session = Depends(get_db)):
-    char = db.query(Character).filter(Character.id == char_id).first()
+
+async def delete_character_controller(
+    char_id: int, db: AsyncSession = Depends(get_db)
+):
+    result = await db.execute(select(Character).filter(Character.id == char_id))
+    char = result.scalar_one_or_none()
     if not char:
         raise NotFoundException("Character not found")
-    db.delete(char)
-    db.commit()
+    await db.delete(char)
+    await db.commit()
     return None
 
-def update_character_controller(char_id: int, char: CharacterCreate, db: Session = Depends(get_db)):
-    db_char = db.query(Character).filter(Character.id == char_id).first()
+
+async def update_character_controller(
+    char_id: int, char: CharacterCreate, db: AsyncSession = Depends(get_db)
+):
+    result = await db.execute(select(Character).filter(Character.id == char_id))
+    db_char = result.scalar_one_or_none()
     if not db_char:
         raise NotFoundException("Character not found")
     for key, value in char.model_dump().items():
         setattr(db_char, key, value)
-    db.commit()
-    db.refresh(db_char)
+    await db.commit()
+    await db.refresh(db_char)
     return db_char

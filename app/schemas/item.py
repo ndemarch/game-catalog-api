@@ -7,15 +7,16 @@ class ItemBase(BaseModel):
     slot: SlotType
     power: int
 
-    #@field_validator("type", mode="before")
-    #@classmethod
-    #def normalize_enum(cls, v):
-    #    if isinstance(v, SlotType):
-    #        return v
-    #    for member in SlotType:
-    #        if member.value.lower() == str(v).lower():
-    #            return member
-    #    raise ValueError(f"Invalid slot_type: {v}")
+    @field_validator("slot", mode="before")
+    @classmethod
+    def normalize_enum(cls, v):
+        if isinstance(v, SlotType):
+            return v
+        try:
+            return SlotType[v.strip().lower()]
+        except KeyError:
+            valid_slots = ', '.join([slot.name for slot in SlotType])
+            raise ValueError(f"Invalid slot_type: {v}. Valid options are: {valid_slots}")
         
 
 class ItemCreate(ItemBase):
