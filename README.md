@@ -8,7 +8,7 @@ This repository is structured following a **Microservice architecture**, which i
 
 ---
 
-## 📁 Project Structure & 🗂️ Module Descriptions
+## 📁 Project Structure & Module Descriptions
 
 ### `app/`
 
@@ -77,8 +77,9 @@ Contains test cases using `pytest` and `httpx`.
 
 ---
 
-## Data Model
-Below are Entity-Relationshio_diagrams generated using Mermaid:
+## 🗂️ Data Models
+Below are Entity-Relationshiop Diagrams (ERD) generated using Mermaid for our Data Models:
+**Character Model:**
 ```mermaid
 classDiagram
     class Character {
@@ -103,7 +104,7 @@ classDiagram
     Character --> ClassType : uses
 
 ```
-
+**Item Model:**
 ```mermaid
 classDiagram
     class Item {
@@ -126,18 +127,33 @@ classDiagram
     Item --> SlotType : uses
 
 ```
+## 🛠️ Running to appplication
+
+The application is containerized using **Docker** which include an *api container*, a *test and developement database container*, a *testing coverage* container and an *alembic container* for database migrations. To build the containers and run the application use the following command at the `root` directory:
+
+```bash
+./run.sh
+```
+**NOTE:** The testing container will halt once all tests have completed and generates a htmlcov folder that contains details on the test coverage. This can be launched using:
+```bash
+open htmlcov/index.html
+```
 
 ## 🧪 Running Tests
-
+**Simple testing command:**
 ```bash
 pytest --cov=app --cov-report=html
 ```
+**Detailed testing command:**
+```bash
+pytest --cov=app --cov-report=term --cov-report=html --cov-fail-under=50 tests
+```
 
-## Swagger API Specification
+## 🟡 Swagger API Specification
 
 After running docker and successfully starting your contaners, you can head to `http://localhost:8000/docs` for API specification.
 
-## Alembic Database Migrations
+## 🐍 Alembic Database Migrations
 
 Once alembic-dev container is running, to apply revisions to databases related to models and schemas run:
 
@@ -145,7 +161,6 @@ Once alembic-dev container is running, to apply revisions to databases related t
 docker-compose exec alembic-dev alembic revision --autogenerate -m "<your-message-regarding-changes>"
 
 ```
-
 
 ```bash
 docker-compose exec alembic-dev alembic upgrade head
