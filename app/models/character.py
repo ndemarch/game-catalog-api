@@ -23,3 +23,4 @@ class Character(Base):
     class_type = Column(Enum(ClassType), nullable=False)
     abilities = Column(JSON, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

@@ -9,7 +9,7 @@ build/
 #.env
 .venv/
 env/
-venv/
+game-api-venv/
 # VS Code
 .vscode/
 # Pytest
