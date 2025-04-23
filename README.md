@@ -74,10 +74,7 @@ Contains test cases using `pytest` and `httpx`.
 ---
 
 ## 🗂️ Data Models
-Below are Entity-Relationshiop Diagrams (ERD) generated using Mermaid for our Data Models:
-
-**Character Model:**
-
+Below are Entity-Relationshiop Diagrams (ERD) generated using Mermaid for our Data Models Character and Item:
 ```mermaid
 classDiagram
     class Character {
@@ -86,6 +83,7 @@ classDiagram
         +Integer level
         +Enum class_type
         +JSON abilities
+        +Dict loadout
         +DateTime created_at
     }
 
@@ -99,16 +97,15 @@ classDiagram
         +Archer
     }
 
-    Character --> ClassType : uses
-
-```
-**Item Model:**
-```mermaid
-classDiagram
     class Item {
         +Integer id
         +String name
         +Enum slot
+        +Float damage
+        +Float defense
+        +Float durability
+        +Float weight
+        +String rarity
         +Integer power
     }
 
@@ -122,9 +119,11 @@ classDiagram
         +Shield
     }
 
+    Character --> ClassType : uses
     Item --> SlotType : uses
-
+    Character --> Item : has
 ```
+
 ## 🛠️ Running the appplication
 
 The application is containerized using **Docker** which include an *api container*, a *test and developement database container*, a *testing coverage* container and an *alembic container* for database migrations. To build the containers and run the application use the following command at the `root` directory:
