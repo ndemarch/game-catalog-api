@@ -96,7 +96,7 @@ async def update_character_item_controller(
     loadout = character.loadout or {}
     loadout[slot] = item
     character.loadout = loadout
-    flag_modified(character, "loadout") # because we only update par of the dict
+    flag_modified(character, "loadout") # because we only update part of the dict
     db.add(character)
     await db.commit()
     await db.refresh(character)
