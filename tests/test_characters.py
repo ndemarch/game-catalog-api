@@ -75,6 +75,7 @@ async def test_update_character(client):
     data = response.json()
     assert data["level"] == 10
     assert data["class_type"] == "Rogue"
+    assert data["updated_at"] is not None
 
 @pytest.mark.asyncio
 async def test_delete_character(client):

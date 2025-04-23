@@ -9,7 +9,7 @@ build/
 #.env # <-- commented out to include for demonstration and testing purposes
 .venv/
 env/
-venv/
+game-api-venv/
 # VS Code
 .vscode/
 # Pytest
