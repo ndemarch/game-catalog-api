@@ -66,7 +66,7 @@ Contains test cases using `pytest` and `httpx`.
 
 ## ⚙️ Configuration Files
 
-- **`.env` and `env.test`**: Stores environment variables like database credentials for dev and test.
+- **`.env` and `env.test`**: Stores environment variables like database credentials for dev and test. **NOTE:** Exist in this repo only for demonstration and testing purposes.
 - **`requirements.txt`**: Lists required Python dependencies.
 - **`Dockerfile`**: Defines the Docker image for the application.
 - **`docker-compose.yml`**: Sets up services (e.g., app, MySQL database) for local development.

@@ -6,7 +6,7 @@ __pycache__/
 dist/
 build/
 # Environment
-#.env
+#.env # <-- commented out to include for demonstration and testing purposes
 .venv/
 env/
 game-api-venv/
