@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Enum, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Enum, UniqueConstraint, Float
 from app.db import Base
 import enum
 
@@ -19,4 +19,8 @@ class Item(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False)
     slot = Column(Enum(SlotType), nullable=False)
-    power = Column(Integer, nullable=False)
+    damage = Column(Float, default=0.0)
+    defense = Column(Float, default=0.0)
+    durability = Column(Float, default=100.0)
+    weight = Column(Float, default=1.0)
+    rarity = Column(String(50), default="Common")

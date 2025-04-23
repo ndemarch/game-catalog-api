@@ -93,3 +93,39 @@ async def test_delete_character(client):
     # ensure deletion
     response = await client.get(f"/characters/{char_id}")
     assert response.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_update_character_loadout(client):
+    # ensure one character exists
+    create_payload = {
+        "name": "Cloud",
+        "level": 30,
+        "class_type": "Warrior"
+    }
+    first_response = await client.post("/characters/", json=create_payload)
+    char_id = first_response.json()["id"]
+    # define the payload to update the loadout
+    payload = {
+        "slot": "Weapon",
+        "item": {
+            "name": "Great Sword",
+            "damage": 15.0,
+            "durability": 100.0,
+            "defense": 0.0
+        }
+    }
+    # update the loadout
+    second_response = await client.patch(f"/characters/{char_id}/loadout", json=payload)
+    assert second_response.status_code == 200
+    # get the character to verify the loadout
+    final_response = await client.get(f"/characters/{char_id}")
+    assert final_response.status_code == 200
+    character_data = final_response.json()
+    # validate the loadout update
+    assert character_data["loadout"]["Weapon"] == {
+        "name": "Great Sword",
+        "damage": 15.0,
+        "durability": 100.0,
+        "defense": 0.0
+    }

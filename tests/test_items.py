@@ -8,13 +8,21 @@ async def test_create_item(client):
     item_payload = {
         "name": "Crossbow",
         "slot": "Weapon",
-        "power": 40,
+        "damage": 40.0,
+        "durability": 100.0,
+        "defense": 0.0,
+        "weight": 2.5,
+        "rarity": "Rare",
     }
     response = await client.post("/items/", json=item_payload)
     assert response.status_code == 201
     assert response.json()["name"] == "Crossbow"
     assert response.json()["slot"] == "Weapon"
-    assert response.json()["power"] == 40
+    assert response.json()["damage"] == 40.0
+    assert response.json()["durability"] == 100.0
+    assert response.json()["defense"] == 0.0
+    assert response.json()["weight"] == 2.5
+    assert response.json()["rarity"] == "Rare"
 
 @pytest.mark.asyncio
 async def test_list_items(client):
@@ -22,7 +30,11 @@ async def test_list_items(client):
     item_payload = {
         "name": "Pulse Pistol",
         "slot": "Weapon",
-        "power": 30,
+        "damage": 30.0,
+        "durability": 100.0,
+        "defense": 0.0,
+        "weight": 1.5,
+        "rarity": "Common",
     }
     await client.post("/items/", json=item_payload)
     # get the list of items or item
@@ -33,7 +45,11 @@ async def test_list_items(client):
     assert len(loadouts) > 0
     assert "name" in loadouts[0]
     assert "slot" in loadouts[0]
-    assert "power" in loadouts[0]
+    assert "damage" in loadouts[0]
+    assert "durability" in loadouts[0]
+    assert "defense" in loadouts[0]
+    assert "weight" in loadouts[0]
+    assert "rarity" in loadouts[0]
 
 
 @pytest.mark.asyncio
@@ -42,7 +58,11 @@ async def test_get_item(client):
     item_payload = {
         "name": "Rocket Hammer",
         "slot": "Weapon",
-        "power": 50,
+        "damage": 50.0,
+        "durability": 100.0,
+        "defense": 0.0,
+        "weight": 3.0,
+        "rarity": "Epic",
     }
     loadout_response = await client.post("/items/", json=item_payload)
     item_id = loadout_response.json()["id"]
@@ -51,7 +71,11 @@ async def test_get_item(client):
     assert response.status_code == 200
     assert response.json()["name"] == "Rocket Hammer"
     assert response.json()["slot"] == "Weapon"
-    assert response.json()["power"] == 50
+    assert response.json()["damage"] == 50.0
+    assert response.json()["durability"] == 100.0
+    assert response.json()["defense"] == 0.0
+    assert response.json()["weight"] == 3.0
+    assert response.json()["rarity"] == "Epic"
 
 @pytest.mark.asyncio
 async def test_update_item(client):
@@ -59,7 +83,11 @@ async def test_update_item(client):
     item_payload = {
         "name": "Power Gauntlet",
         "slot": "Weapon",
-        "power": 60,
+        "damage": 60.0,
+        "durability": 100.0,
+        "defense": 0.0,
+        "weight": 1.0,
+        "rarity": "Legendary",
     }
     response = await client.post("/items/", json=item_payload)
     item_id = response.json()["id"]
@@ -67,18 +95,26 @@ async def test_update_item(client):
     update_payload = {
         "name": "Power Gauntlet",
         "slot": "Weapon",
-        "power": 90,
+        "damage": 70.0,
+        "durability": 100.0,
+        "defense": 0.0,
+        "weight": 1.0,
+        "rarity": "Legendary",
     }
     new_response = await client.put(f"/items/{item_id}", json=update_payload)
     assert new_response.status_code == 200
-    assert new_response.json()["power"] == 90
+    assert new_response.json()["damage"] == 70.0
 
 @pytest.mark.asyncio
 async def test_delete_item(client):
     item_payload = {
         "name": "Power Gauntlet",
         "slot": "Weapon",
-        "power": 90,
+        "damage": 60.0,
+        "durability": 100.0,
+        "defense": 0.0,
+        "weight": 1.0,
+        "rarity": "Legendary",
     }
     response = await client.post("/items/", json=item_payload)
     item_id = response.json()["id"]
