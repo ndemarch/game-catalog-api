@@ -5,7 +5,11 @@ from app.models.items import SlotType
 class ItemBase(BaseModel):
     name: str
     slot: SlotType
-    power: int
+    damage: float
+    durability: float
+    defense: float
+    weight: float
+    rarity: str
 
     @field_validator("slot", mode="before")
     @classmethod

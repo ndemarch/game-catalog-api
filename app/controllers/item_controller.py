@@ -14,7 +14,11 @@ async def create_item_controller(item: ItemCreate, db: AsyncSession = Depends(ge
         and_(
             Item.name == item.name,
             Item.slot == item.slot,
-            Item.power == item.power
+            Item.damage == item.damage,
+            Item.defense == item.defense,
+            Item.durability == item.durability,
+            Item.weight == item.weight,
+            Item.rarity == item.rarity,
         )
     )
     result = await db.execute(query)

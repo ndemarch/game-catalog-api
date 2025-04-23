@@ -24,6 +24,7 @@ class CharacterCreate(CharacterBase):
 class CharacterOut(CharacterBase):
     id: int
     abilities: dict
+    loadout: dict
     created_at: datetime
     updated_at: datetime
     model_config = {

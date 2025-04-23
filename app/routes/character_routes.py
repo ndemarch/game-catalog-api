@@ -9,6 +9,7 @@ from app.controllers.character_controller import (
     get_character_controller,
     delete_character_controller,
     update_character_controller,
+    update_character_item_controller,
 )
 
 # character api router: handles character-related endpoints
@@ -38,6 +39,9 @@ async def update_character(char_id: int, char: CharacterCreate, db: AsyncSession
 async def list_characters(skip: int = 0, limit: int = 10, db: AsyncSession = Depends(get_db)):
     return await list_characters_controller(skip, limit, db)
 
+@router.patch("/{char_id}/loadout")
+async def update_loadout(char_id: int, payload: dict, db: AsyncSession = Depends(get_db)):
+    return await update_character_item_controller(char_id, payload, db)
 
 ##pagination
 #@router.get("/", response_model=List[CharacterOut])

@@ -56,7 +56,7 @@ services:
     volumes:
       - .:/app
     command: >
-      sh -c "sleep 15 && pytest --cov=app --cov-report=term --cov-report=html --cov-fail-under=50 tests"
+      sh -c "sleep 15 && pytest -v --cov=app --cov-report=term --cov-report=html --cov-fail-under=50 tests"
     
 
 volumes:
